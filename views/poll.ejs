@@ -12,9 +12,20 @@
 
   <body>
     <header><h1>Hello Pollers!</h1></header>
-    <form action="/create">
-      <input type="text" id="event" name="event_name"><br>
-      <input type="submit" value="Create Schoodle Poll">
-    </form>
+    <div>Event title: <%= title %></div>
+    <div>Event location: <%= place %></div>
+    <div>Event note: <%= note %></div>
+    <div><%= organizer_name %></div>
+    <div><%= organizer_email %></div>
+
+    <section>
+      <form action="/vote" method="POST">
+        <input type="radio" name="option" value="male" checked> <%= option1.option_text %> <br>
+        <input type="radio" name="option" value="male"> <%= option2.option_text %> <br>
+        <input type="submit" value="Vote">
+      </form>
+      
+    </section>
+    
   </body>
 </html>

@@ -65,21 +65,27 @@ app.get("/create/initiator", (req, res) => {
 });
 
 app.post("/poll", (req, res) => {
-  console.log(req.cookies,req.body);
-  let newPoll = {
-    event_details : JSON.parse(req.cookies.event_details),
-    event_options : JSON.parse(req.cookies.event_options),
-    organizer_details : req.body
+  const event_details = JSON.parse(req.cookies.event_details);
+  const event_options = JSON.parse(req.cookies.event_options);
+  const organizer_details = req.body;
+  const newPoll = {
+    event_details, 
+    event_options,
+    organizer_details,
   }
-  console.log(newPoll);
   dataHelpers.savePoll(knex, newPoll);
   res.render("poll");
 });
 
 app.get("/poll/:id", (req, res) => {
   const super_secret_URL = req.params.id;
-  const pollData = dataHelpers.getPoll(knex, super_secret_URL);
-  res.render("poll", pollData);
+  dataHelpers.getPoll(knex, super_secret_URL, (pollData) => {
+    const { title, place, note, organizer_name, organizer_email } = pollData[0]
+    const option1 = { option_text: pollData[0].option_text, event_option_id: pollData[0].event_option_id }
+    const option2 = { option_text: pollData[1].option_text, event_option_id: pollData[1].event_option_id }
+    const templatePollData = { title, place, note, organizer_name, organizer_email, option1, option2 };
+    res.render("poll", templatePollData);
+  });
 });
 
 app.listen(PORT, () => {

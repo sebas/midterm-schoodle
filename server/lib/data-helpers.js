@@ -40,15 +40,12 @@ module.exports = function makeDataHelpers(db) {
           'events.organizer_name',
           'events.organizer_email',
           'event_options.id AS event_option_id',
-          'event_options.option_text',
-          'participants.username',
-          'participants.email'
+          'event_options.option_text'
         ])
         .from('events')
         .innerJoin('event_options', 'events.id', 'event_options.event_id')
-        .leftJoin('participants', 'event_options.event_id', 'participants.event_option_id')
         .where({ super_secret_URL })
-      .then(res => res)
+      .then(result => callback(result))
     }
 
   };
