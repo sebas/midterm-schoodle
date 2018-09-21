@@ -4,6 +4,7 @@ module.exports = {
 
   development: {
     client: 'postgresql',
+    debug: true,
     connection: {
       host     : process.env.DB_HOST,
       user     : process.env.DB_USER,
