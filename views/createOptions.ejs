@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Schoodle Create Options</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>    
+  </head>
+
+  <body>
+    <header><h1>Hello Schoodlers!</h1></header>
+    
+    <form action="/create/initiator">
+      <label for="input_option_1">Option one</label>
+      <input type="text" id="input_option_1" name="option_1"><br>
+      <label for="input_option_2">Option one</label>
+      <input type="text" id="input_option_2" name="option_2"><br>      
+      <input type="submit" value="Continue" onclick="setCookie()">
+    </form>
+    <script>
+        function setCookie() {
+          var option_1 = document.getElementById('input_option_1').value;
+          var option_2 = document.getElementById('input_option_2').value;
+          Cookies.set('event_options', { 
+            "option_1": option_1, 
+            "option_2": option_2
+          });
+        }
+      </script>
+  </body>
+</html>

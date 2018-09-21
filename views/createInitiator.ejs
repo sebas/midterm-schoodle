@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Schoodle Create Initiator</title>
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Hello Schoodlers!</h1>
+  </header>
+
+  <form action="/poll" method="POST">
+    <label for="input_name">Name</label>
+    <input type="text" id="input_name" name="name"><br>
+    <label for="input_email">Email</label>
+    <input type="text" id="input_email" name="email"><br>
+    <input type="submit" value="Create Schoodle Poll">
+  </form>
+
+</body>
+
+</html>
