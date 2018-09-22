@@ -2,7 +2,7 @@
 
 require('dotenv').config();
 
-const PORT        = process.env.PORT || 8080;
+const PORT        = process.env.PORT || 8081;
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
@@ -49,14 +49,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/create", (req, res) => {
-  console.log('Cookies: ', req.cookies);
-  console.log('Query string: ', req.query.event_name);
   res.render("create", { event_name: req.query.event_name});
 });
 
 app.get("/create/options", (req, res) => {
-  console.log('Cookies: ', req.cookies);
-  console.log('Query string: ', req.query.event_name);
   res.render("createOptions", { event_name: req.query.event_name});
 });
 
@@ -73,20 +69,76 @@ app.post("/poll", (req, res) => {
     event_options,
     organizer_details,
   }
-  dataHelpers.savePoll(knex, newPoll);
-  res.render("poll");
+  dataHelpers.savePoll(knex, newPoll, (id, super_secret_URL) => {
+    console.log('url', super_secret_URL)
+    res.render("poll", { 
+      title: newPoll.event_details.event_name, 
+      place: newPoll.event_details.event_location, 
+      note: newPoll.event_details.event_note,
+      organizer_email: newPoll.organizer_details.email,
+      organizer_name: newPoll.organizer_details.name,
+      event_id: id,
+      super_secret_URL
+    });
+  });
+});
+
+app.post("/vote", (req, res) => {
+  console.log("request is",req.body);
+  const newVote = {
+    event_id: req.body.event_id,
+    event_option_id: req.body.event_option_id,
+    username: req.body.username,
+    email: req.body.email,
+    super_secret_URL: req.body.super_secret_URL
+  }
+  dataHelpers.saveVote(knex,newVote,()=>{
+    console.log('are you running', req.body.super_secret_URL);
+    res.redirect("/poll/" + req.body.super_secret_URL);
+  })
+
+  // const event_details = JSON.parse(req.cookies.event_details);
+  // const event_options = JSON.parse(req.cookies.event_options);
+  // const organizer_details = req.body;
+  // const newPoll = {
+  //   event_details,
+  //   event_options,
+  //   organizer_details,
+  // }
+  // dataHelpers.savePoll(knex, newPoll, (id, super_secret_URL) => {
+  //   console.log('url', super_secret_URL)
+  //   res.render("poll", {
+  //     title: newPoll.event_details.event_name,
+  //     place: newPoll.event_details.event_location,
+  //     note: newPoll.event_details.event_note,
+  //     organizer_email: newPoll.organizer_details.email,
+  //     organizer_name: newPoll.organizer_details.name,
+  //     event_id: id,
+  //     super_secret_URL
+  //   });
+  // });
 });
 
 app.get("/poll/:id", (req, res) => {
   const super_secret_URL = req.params.id;
   dataHelpers.getPoll(knex, super_secret_URL, (pollData) => {
-    const { title, place, note, organizer_name, organizer_email } = pollData[0]
+    const { title, place, note, organizer_name, organizer_email, event_id } = pollData[0]
     const option1 = { option_text: pollData[0].option_text, event_option_id: pollData[0].event_option_id }
     const option2 = { option_text: pollData[1].option_text, event_option_id: pollData[1].event_option_id }
-    const templatePollData = { title, place, note, organizer_name, organizer_email, option1, option2 };
-    res.render("poll", templatePollData);
+    res.render("poll", { title, place, note, organizer_name, organizer_email, option1, option2, super_secret_URL, event_id });
   });
 });
+
+app.get("/api/events/pollOptions/:id", (req, res) => {
+  const event_id = req.params.id;
+  dataHelpers.getPollOptions(knex, event_id, (eventOptionsArray) => {
+    if (eventOptionsArray) {
+      res.status(200).json(eventOptionsArray);
+    } else {
+      res.status(500).send('we fukd')
+    };
+  })
+})
 
 app.listen(PORT, () => {
   console.log("Schoodle app listening on port " + PORT);
