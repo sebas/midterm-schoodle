@@ -59,17 +59,14 @@ module.exports = function makeDataHelpers(db) {
         .then(result =>
           callback(result))
     },
-    
-    saveVote: function (knex,newVote,callback){
+
+    saveVote: function (knex, newVote, callback){
       console.log("newVote is", newVote);
      // console.log("The fields are ", newVote.event_id, newVote.event_option_id, newVote.organizer_name,newVote.organizer_email);
-      knex('participants')
-      .insert({
-        event_id: newVote.event_id,
-        event_option_id: newVote.event_option_id,
-        username: newVote.username,
-        email: newVote.email
-      }).then((res)=>{
+     // INSERT INTO table_name(column_list) VALUES(value_list) ON CONFLICT no_double_votes DO UPDATE ...
+     const { event_id, event_option_id, username, email } = newVote;
+     knex.raw(`INSERT INTO participants ("event_id", "event_option_id", "username", "email") VALUES (${event_id}, ${event_option_id}, '${username}', '${email}') ON CONFLICT ON CONSTRAINT no_double_votes DO UPDATE SET event_option_id = ${event_option_id}, username = '${username}'`)
+     .then((res)=>{
         callback(res);
       })
     },
