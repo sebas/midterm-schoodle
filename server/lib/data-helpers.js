@@ -1,36 +1,40 @@
 
-const secretURL = require('./util/url-helper')();
+const super_secret_URL = require('./util/url-helper');
 
 module.exports = function makeDataHelpers(db) {
   return {
-    savePoll: function( knex, newPoll, callback) {
+    savePoll: function (knex, newPoll, callback) {
       // Insert Event into Events table
       const { event_name, event_location, event_note } = newPoll.event_details;
       const { name, email } = newPoll.organizer_details;
       knex('events')
-      .returning('id')
-      .insert({
-        title: event_name,
-        place: event_location,
-        note: event_note,
-        organizer_name: name,
-        organizer_email: email,
-        super_secret_URL: secretURL
-      })
-      .then((id) => {
-        // Insert each Options into Event_Options table using event ID
-        const options = Object.values(newPoll.event_options);
-        options.forEach((option,index) => {
-          knex('event_options').insert({
-            event_id: id[0],
-            option_text: option 
-          })
-          .then(res => console.log(res));
+        .returning(['id','super_secret_URL'])
+        .insert({
+          title: event_name,
+          place: event_location,
+          note: event_note,
+          organizer_name: name,
+          organizer_email: email,
+          super_secret_URL: super_secret_URL()
         })
-      })
-  },
-  // FROM events JOIN event_options ON events.id = event_options.event_id LEFT JOIN participants ON event_options.id=participants.event_option_id WHERE super_secret_URL=query;
-    getPoll: function(knex, super_secret_URL, callback) {
+        .then(([{id, super_secret_URL}]) => {
+          console.log('this is the secret url in then', id, super_secret_URL)
+          // Insert each Options into Event_Options table using event ID
+          const options = Object.values(newPoll.event_options);
+          options.map((option) => {
+            knex('event_options')
+              .returning('id AS event_option_id')
+              .insert({
+                event_id: id,
+                option_text: option
+              }).then((res)=>(console.log(res)))
+          });
+          callback(id, super_secret_URL)
+        })
+    },
+
+    // FROM events JOIN event_options ON events.id = event_options.event_id LEFT JOIN participants ON event_options.id=participants.event_option_id WHERE super_secret_URL=query;
+    getPoll: function (knex, super_secret_URL, callback) {
       knex()
         .select([
           'events.id AS event_id',
@@ -45,7 +49,46 @@ module.exports = function makeDataHelpers(db) {
         .from('events')
         .innerJoin('event_options', 'events.id', 'event_options.event_id')
         .where({ super_secret_URL })
-      .then(result => callback(result))
+        .then(result => callback(result))
+    },
+
+    getPollOptions: function (knex, event_id, callback) {
+      knex('event_options')
+        .select('*')
+        .where({ event_id })
+        .then(result =>
+          callback(result))
+    },
+
+    saveVote: function (knex, newVote, callback){
+      console.log("newVote is", newVote);
+     // console.log("The fields are ", newVote.event_id, newVote.event_option_id, newVote.organizer_name,newVote.organizer_email);
+     // INSERT INTO table_name(column_list) VALUES(value_list) ON CONFLICT no_double_votes DO UPDATE ...
+     const { event_id, event_option_id, username, email } = newVote;
+     knex.raw(`INSERT INTO participants ("event_id", "event_option_id", "username", "email") VALUES (${event_id}, ${event_option_id}, '${username}', '${email}') ON CONFLICT ON CONSTRAINT no_double_votes DO UPDATE SET event_option_id = ${event_option_id}, username = '${username}'`)
+     .then((res)=>{
+        callback(res);
+      })
+    },
+
+    getParticipantsForOption: function(knex, event_option_id, callback) {
+      knex("participants")
+        .select('*')
+        .where({ event_option_id })
+        .then((res)=>{
+          console.log('this is the res in getParticipants', res)
+          callback(res);
+        })
+    },
+
+    getVotesSum: function(knex, event_id, callback) {
+      knex("participants")
+        .select('*')
+        .where({ event_id })
+        .then((res)=>{
+          console.log('this is the res in getVotes', res)
+          callback(res);
+        })
     }
 
   };
