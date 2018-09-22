@@ -17,8 +17,11 @@
     <div>Event title: <%= title %></div>
     <div>Event location: <%= place %></div>
     <div>Event note: <%= note %></div>
-    <div id="organizer_name"><%= organizer_name %></div>
-    <div id="organizer_email"><%= organizer_email %></div>
+
+    <label for="organizer_name">Name</label>
+    <input id="organizer_name" type="text"  name="username" value="<%= organizer_name %>">
+    <label for="organizer_email">Email</label>
+    <input id="organizer_email" type="text" name="email" value="<%= organizer_email %>">
 
     <section data-event_id="<%= event_id %>" >
       <form id="voteForm" action="/vote" method="POST">
