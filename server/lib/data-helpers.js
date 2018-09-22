@@ -59,7 +59,8 @@ module.exports = function makeDataHelpers(db) {
         .then(result =>
           callback(result))
     },
-    saveVote:function (knex,newVote,callback){
+    
+    saveVote: function (knex,newVote,callback){
       console.log("newVote is", newVote);
      // console.log("The fields are ", newVote.event_id, newVote.event_option_id, newVote.organizer_name,newVote.organizer_email);
       knex('participants')
@@ -71,6 +72,26 @@ module.exports = function makeDataHelpers(db) {
       }).then((res)=>{
         callback(res);
       })
+    },
+
+    getParticipantsForOption: function(knex, event_option_id, callback) {
+      knex("participants")
+        .select('*')
+        .where({ event_option_id })
+        .then((res)=>{
+          console.log('this is the res in getParticipants', res)
+          callback(res);
+        })
+    },
+
+    getVotesSum: function(knex, event_id, callback) {
+      knex("participants")
+        .select('*')
+        .where({ event_id })
+        .then((res)=>{
+          console.log('this is the res in getVotes', res)
+          callback(res);
+        })
     }
 
   };
