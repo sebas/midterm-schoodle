@@ -24,7 +24,7 @@ const dataHelpers = require("./lib/data-helpers")();
 //         The :status token will be colored red for server error codes, 
 // yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan("dev"));
-app.use(cookieParser())
+app.use(cookieParser());
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
@@ -84,17 +84,17 @@ app.post("/poll", (req, res) => {
 });
 
 app.post("/vote", (req, res) => {
-  console.log("request is",req.body);
+  console.log("request in vote post is",req.body);
   const newVote = {
     event_id: req.body.event_id,
-    event_option_id: req.body.event_option_id,
+    event_option_id: req.body.option,
     username: req.body.username,
     email: req.body.email,
     super_secret_URL: req.body.super_secret_URL
-  }
+  };
   dataHelpers.saveVote(knex,newVote,()=>{
     console.log('are you running', req.body.super_secret_URL);
-    res.redirect("/poll/" + req.body.super_secret_URL);
+    res.send("/poll/" + req.body.super_secret_URL);
   })
 
   // const event_details = JSON.parse(req.cookies.event_details);
@@ -140,6 +140,19 @@ app.get("/api/events/pollOptions/:id", (req, res) => {
   })
 })
 
+app.get("/api/events/:optionId/participants", (req,res) => {
+  const event_option_id = req.params.optionId;
+  dataHelpers.getParticipantsForOption(knex, event_option_id, (participants) => {
+    res.status(200).json(participants);
+  });
+});
+
+app.get("/api/votes/:id", (req, res) =>{
+  dataHelpers.getVotes(knex, req.params.id, (votes) => {
+    console.log('these are the votes in /api/votes/', votes);
+    res.status(200).json(votes)
+  })
+});
 app.listen(PORT, () => {
   console.log("Schoodle app listening on port " + PORT);
 });
