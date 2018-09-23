@@ -1,7 +1,21 @@
 body {
   background-color: #EEE;
 
+  nav.navbar {
+    
+    a {
+      color: white !important;
+    }
+
+  }
+
   h1 {
     color: #244751;
   }
+
+  input.auto-disable {
+    autocomplete: off;
+  }
 }
+
+
