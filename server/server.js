@@ -19,6 +19,8 @@ const cookieParser = require("cookie-parser");
 const usersRoutes = require("../routes/users");
 const dataHelpers = require("./lib/data-helpers")();
 
+console.log("You are working on:", ENV );
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, 
@@ -32,8 +34,8 @@ app.use(knexLogger(knex));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
-  src: __dirname + "/styles",
-  dest: __dirname + "/public/styles",
+  src: __dirname + "/../styles",
+  dest: __dirname + "/../public/styles",
   debug: true,
   outputStyle: "expanded"
 }));
