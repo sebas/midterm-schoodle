@@ -54,11 +54,11 @@ app.get("/create", (req, res) => {
   res.render("create", { event_name: req.query.event_name});
 });
 
-app.get("/create/options", (req, res) => {
+app.post("/create/options", (req, res) => {
   res.render("createOptions", { event_name: req.query.event_name});
 });
 
-app.get("/create/initiator", (req, res) => {
+app.post("/create/initiator", (req, res) => {
   res.render("createInitiator");
 });
 

@@ -6,19 +6,29 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/jquery.datetimepicker.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>    
+    <script type="text/javascript" src="/vendor/jquery.datetimepicker.full.js"></script>
+    <script type="text/javascript" src="/scripts/calendarApp.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
   </head>
 
   <body>
     <header><h1>Hello Schoodlers!</h1></header>
     
-    <form action="/create/initiator">
+    <form action="/create/initiator" method="POST">
       <label for="input_option_1">Option one</label>
-      <input type="text" id="input_option_1" name="option_1"><br>
+      <input class="auto-disable" type="text" id="input_option_1" name="option_1" autocomplete="off"><br>
       <label for="input_option_2">Option one</label>
-      <input type="text" id="input_option_2" name="option_2"><br>      
+      <input class="auto-disable" type="text" id="input_option_2" name="option_2" autocomplete="off"><br>      
       <input type="submit" value="Continue" onclick="setCookie()">
     </form>
     <script>

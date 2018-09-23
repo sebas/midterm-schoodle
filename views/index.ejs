@@ -15,43 +15,35 @@
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
-
 </head>
 
 <body class="body">
+  <% include partials/_nav_bar.ejs %>
   <main class="">
-    <div class="container">
-      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-info">
-        <a class="navbar-brand" href="/">Schooodle</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/features">Features</a>
-            <a class="nav-item nav-link" href="/pricing">Pricing</a>
-            <a class="nav-item nav-link" href="/about">About</a>
+    <div class="row col-12">
+      <div class="col-1"></div>
+      <div class="aLittleBitDown weWantItRounded andWeWantedBlue col-10">
+        <article class=" container-fluid">
+          <div class="d-flex justify-content-center row">
+            <h1>Hello Schooodlers!</h1>
           </div>
-        </div>
-      </nav>
+          <section class="d-flex justify-content-center row">
+            <form class="btnShouldBeCenterAndALittleBitUp justify-content-center" action="/create">
+              <input class="weWantTheFontSizeSmaller form-control form-control-lg" type="text" id="event" name="event_name" placeholder="What's the occasion?..."><br>
+              <input class="btn btn-primary" type="submit" value="Create Schoodle Poll">
+            </form>
+          </section>
+        </article>
+      </div>
+      <div class="col-1"></div>
     </div>
-
-    <header>
-      <h1>Hello Schooodlers!</h1>
-    </header>
-    <form action="/create">
-      <input type="text" id="event" name="event_name"><br>
-      <input type="submit" value="Create Schoodle Poll">
-    </form>
+    <% include partials/_footer.ejs %>
   </main>
+
 </body>
 
 </html>
