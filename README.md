@@ -1,14 +1,6 @@
-# Node Skeleton
+# Schoodle
 
-## Project Setup
 
-1. Create your own empty repo on GitHub
-2. Clone this repository (do not fork)
-  - Suggestion: When cloning, specify a different folder name that is relevant to your project
-3. Remove the git remote: `git remote rm origin`
-4. Add a remote for your origin: `git remote add origin <your github repo URL>`
-5. Push to the new origin: `git push -u origin master`
-6. Verify that the skeleton code now shows up in your repo on GitHub
 
 ## Getting Started
 
@@ -27,3 +19,14 @@
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+
+## Final Product
+
+!["Organize"](/docs/-m.png)
+!["Define"](/docs/-new.png)
+!["Vote"](/docs/.png)
+!["Pick"](/docs/t.png)
+
+## Thanks for try it
+:+1: :sparkles: :camel: :tada:
+:rocket: :metal: :octocat:
