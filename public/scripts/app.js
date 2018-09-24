@@ -17,7 +17,7 @@ $(function () {
         url: `/api/events/${option.id}/participants/`
       }).done(function (participantsArray) {
         participantsArray.forEach(function (participant) {
-          var hash = md5(participant.email)
+          var hash = md5(participant.email);
           $(`<img class="weWantTheAvatarRounded" src="https://vanillicon.com/${hash}_50.png" title="${participant.username} (${participant.email})" alt="${participant.username} (${participant.email})">`).appendTo($(`#${participant.event_option_id}-list`))
         });
       });
