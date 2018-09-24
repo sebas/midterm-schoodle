@@ -107,5 +107,5 @@ app.get("/poll/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log("Schoodle app listening on port " + PORT);
+  console.log("Schooodle app listening on port " + PORT);
 });
