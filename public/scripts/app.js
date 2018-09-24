@@ -7,7 +7,7 @@ $(function () {
   }).then(function (eventOptionsArray) {
     eventOptionsArray.forEach(function (eventOption) {
       $(`<div class="custom-control custom-radio" id="${eventOption.id}-list"></div>`).prependTo("section");
-      $(`<input class="fa fa-circle-o fa-2x" type="radio" id="${eventOption.id}"  name="event_option" value="${eventOption.id}">${eventOption.option_text}<br>`).prependTo($(`#${eventOption.id}-list`));
+      $(`<br><input class="fa fa-circle-o fa-2x" type="radio" id="${eventOption.id}"  name="event_option" value="${eventOption.id} ">${eventOption.option_text}<br>`).prependTo($(`#${eventOption.id}-list`));
     });
     return eventOptionsArray;
   }).then(function (eventOptionsArray) {
