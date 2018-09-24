@@ -13,18 +13,17 @@ $(function () {
   $('#add_option').on('click', function () {
     var $input_fields_container = $('#input_fields_container');
     var option_number = $('input').length + 1;
+    var $inputHolder = $('<div>')
     var $label = $(`<label for="input_option_${option_number}">Date & Time Option ${option_number}</label>`)
     var $input = $(`<input class="form-control form-control-m" type="text" id="input_option_${option_number}" name="option_${option_number}" autocomplete="off"><br>`);
-    $label.appendTo($input_fields_container);
-    $input.appendTo($input_fields_container);
-    $('<br>').appendTo($input_fields_container);
+    $label.appendTo($inputHolder);
+    $input.appendTo($inputHolder);
+    $inputHolder.appendTo($input_fields_container);
     $(`#input_option_${option_number}`).datetimepicker();
   });
   $('#remove_option').on('click', function () {
     // remove <br>, <input> and <label>
     $('#input_fields_container').children().last().remove();
-    $('#input_fields_container').children().last().remove();
-    $('#input_fields_container').children().last().remove();
-    $('#input_fields_container').children().last().remove();
+
   });
 });
