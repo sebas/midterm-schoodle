@@ -54,11 +54,11 @@ app.get("/create", (req, res) => {
   res.render("create", { event_name: req.query.event_name});
 });
 
-app.post("/create/options", (req, res) => {
+app.get("/create/options", (req, res) => {
   res.render("createOptions", { event_name: req.query.event_name});
 });
 
-app.post("/create/initiator", (req, res) => {
+app.get("/create/initiator", (req, res) => {
   res.render("createInitiator");
 });
 
@@ -97,28 +97,7 @@ app.post("/vote", (req, res) => {
   dataHelpers.saveVote(knex,newVote,()=>{
     console.log('are you running', req.body.super_secret_URL);
     res.send("/poll/" + req.body.super_secret_URL);
-  })
-
-  // const event_details = JSON.parse(req.cookies.event_details);
-  // const event_options = JSON.parse(req.cookies.event_options);
-  // const organizer_details = req.body;
-  // const newPoll = {
-  //   event_details,
-  //   event_options,
-  //   organizer_details,
-  // }
-  // dataHelpers.savePoll(knex, newPoll, (id, super_secret_URL) => {
-  //   console.log('url', super_secret_URL)
-  //   res.render("poll", {
-  //     title: newPoll.event_details.event_name,
-  //     place: newPoll.event_details.event_location,
-  //     note: newPoll.event_details.event_note,
-  //     organizer_email: newPoll.organizer_details.email,
-  //     organizer_name: newPoll.organizer_details.name,
-  //     event_id: id,
-  //     super_secret_URL
-  //   });
-  // });
+  });
 });
 
 app.get("/poll/:id", (req, res) => {
@@ -138,9 +117,9 @@ app.get("/api/events/pollOptions/:id", (req, res) => {
       res.status(200).json(eventOptionsArray);
     } else {
       res.status(500).send('we fukd')
-    };
-  })
-})
+    }
+  });
+});
 
 app.get("/api/events/:optionId/participants", (req,res) => {
   const event_option_id = req.params.optionId;
@@ -152,8 +131,8 @@ app.get("/api/events/:optionId/participants", (req,res) => {
 app.get("/api/votes/:id", (req, res) =>{
   dataHelpers.getVotes(knex, req.params.id, (votes) => {
     console.log('these are the votes in /api/votes/', votes);
-    res.status(200).json(votes)
-  })
+    res.status(200).json(votes);
+  });
 });
 app.listen(PORT, () => {
   console.log("Schoodle app listening on port " + PORT);
