@@ -54,7 +54,6 @@ $(function () {
         super_secret_URL
       },
       success: function (response) {
-        console.log(response)
         removeDrawnVote(username, email)
         getVotesForOptions(event_options)
       }
