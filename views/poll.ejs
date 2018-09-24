@@ -5,6 +5,7 @@
   <title>Schooodle Poll</title>
   <% include partials/_head.ejs %>˝
   <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.js"></script>
 </head>
 
 <body>
@@ -16,15 +17,15 @@
         <header data-super_secret_URL="<%= super_secret_URL %>">
           <h1>Hello Pollers!</h1>
         </header>
-        <div>Event title:
+        <h4>Event title:
           <%= title %>
-        </div>
-        <div>Event location:
+        </h4>
+        <h4>Event location:
           <%= place %>
-        </div>
-        <div>Event note:
+        </h4>
+        <h4>Event note:
           <%= note %>
-        </div>
+        </h4>
 
         <label for="organizer_name">Name</label>
         <input class="form-control form-control-m" id="organizer_name" type="text" name="username" value="<%= organizer_name %>">

@@ -6,7 +6,7 @@ $(function () {
     url: `/api/events/pollOptions/${event_id}`
   }).then(function (eventOptionsArray) {
     eventOptionsArray.forEach(function (eventOption) {
-      $(`<div class="custom-control custom-radio" id="${eventOption.id}-list">Voters:</div>`).prependTo("section");
+      $(`<div class="custom-control custom-radio" id="${eventOption.id}-list"></div>`).prependTo("section");
       $(`<input class="fa fa-circle-o fa-2x" type="radio" id="${eventOption.id}"  name="event_option" value="${eventOption.id}">${eventOption.option_text}<br>`).prependTo($(`#${eventOption.id}-list`));
     });
     return eventOptionsArray;
@@ -17,7 +17,8 @@ $(function () {
         url: `/api/events/${option.id}/participants/`
       }).done(function (participantsArray) {
         participantsArray.forEach(function (participant) {
-          $(`<div id="${participant.email}"> ${participant.username} (${participant.email})</div>`).appendTo($(`#${participant.event_option_id}-list`));
+          var hash = md5(participant.email)
+          $(`<img class="weWantTheAvatarRounded" src="https://vanillicon.com/${hash}_50.png" title="${participant.username} (${participant.email})" alt="${participant.username} (${participant.email})">`).appendTo($(`#${participant.event_option_id}-list`))
         });
       });
     });
@@ -29,7 +30,6 @@ $(function () {
     var email = $("#organizer_email").val();
     var option = $('input[name="event_option"]:checked').val();
     var super_secret_URL = $('header').data("super_secret_url");
-    console.log("option", option);
     $.ajax({
       method: "POST",
       url: "/vote",
