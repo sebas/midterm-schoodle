@@ -45,4 +45,5 @@ $(function () {
       }
     });
   });
+  $('#baseURL').text(document.location.protocol + '//' + document.location.hostname + ((document.location.port) ? (':' + document.location.port) : '') + ((document.location.pathname === '/poll') ? document.location.pathname : '') + '/')
 });
