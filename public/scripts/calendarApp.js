@@ -13,7 +13,7 @@ $(function () {
   $('#add_option').on('click', function () {
     var $input_fields_container = $('#input_fields_container');
     var option_number = $('input').length + 1;
-    var $label = $(`<label for="input_option_${option_number}">Option ${option_number}</label>`)
+    var $label = $(`<label for="input_option_${option_number}">Date & Time Option ${option_number}</label>`)
     var $input = $(`<input class="form-control form-control-m" type="text" id="input_option_${option_number}" name="option_${option_number}" autocomplete="off"><br>`);
     $label.appendTo($input_fields_container);
     $input.appendTo($input_fields_container);
