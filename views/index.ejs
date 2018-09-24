@@ -2,23 +2,9 @@
 <html lang="en">
 
 <head>
-  <title>Schoodle Home Page</title>
+  <title>Schooodle Home Page</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
+  <% include partials/_head.ejs %>
 </head>
 
 <body class="body">
@@ -26,18 +12,13 @@
   <main class="">
     <div class="row col-12">
       <div class="col-1"></div>
-      <div class="aLittleBitDown weWantItRounded andWeWantedBlue col-10">
-        <article class=" container-fluid">
-          <div class="d-flex justify-content-center row">
-            <h1>Hello Schooodlers!</h1>
-          </div>
-          <section class="d-flex justify-content-center row">
-            <form class="btnShouldBeCenterAndALittleBitUp justify-content-center" action="/create">
-              <input class="weWantTheFontSizeSmaller form-control form-control-lg" type="text" id="event" name="event_name" placeholder="What's the occasion?..."><br>
-              <input class="btn btn-primary" type="submit" value="Create Schoodle Poll">
-            </form>
-          </section>
-        </article>
+      <div class="aLittleBitDown andWeWantedBlue weWantItRounded col-10">
+        <h1>Hello Schooodlers!</h1>
+        
+        <form action="/create" class="btnShouldBeCenterAndALittleBitUp">
+          <input class="form-control form-control-m" type="text" id="event" name="event_name" placeholder="What's the occasion?..."><br>
+          <input class="btn btn-primary" type="submit" value="Create Schoodle Poll">
+        </form>
       </div>
       <div class="col-1"></div>
     </div>

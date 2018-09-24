@@ -1,39 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Schoodle Poll</title>
-    
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<head>
+  <title>Schooodle Poll</title>
+  <% include partials/_head.ejs %>˝
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
 
-    
-  </head>
+<body>
+  <% include partials/_nav_bar.ejs %>
+  <main class="">
+    <div class="row col-12">
+      <div class="col-1"></div>
+      <div class="aLittleBitDown andWeWantedBlue weWantItRounded col-10">
+        <header data-super_secret_URL="<%= super_secret_URL %>">
+          <h1>Hello Pollers!</h1>
+        </header>
+        <div>Event title:
+          <%= title %>
+        </div>
+        <div>Event location:
+          <%= place %>
+        </div>
+        <div>Event note:
+          <%= note %>
+        </div>
 
-  <body>
-    <header data-super_secret_URL="<%= super_secret_URL %>"><h1>Hello Pollers!</h1></header>
-    <div>Event title: <%= title %></div>
-    <div>Event location: <%= place %></div>
-    <div>Event note: <%= note %></div>
+        <label for="organizer_name">Name</label>
+        <input class="form-control form-control-m" id="organizer_name" type="text" name="username" value="<%= organizer_name %>">
+        <label for="organizer_email">Email</label>
+        <input class="form-control form-control-m" id="organizer_email" type="text" name="email" value="<%= organizer_email %>">
 
-    <label for="organizer_name">Name</label>
-    <input id="organizer_name" type="text"  name="username" value="<%= organizer_name %>">
-    <label for="organizer_email">Email</label>
-    <input id="organizer_email" type="text" name="email" value="<%= organizer_email %>">
+        <section data-event_id="<%= event_id %>">
+       
+        <form id="voteForm" action="/vote" method="POST">
+          <input type="hidden" id="<%= event_id %>" name="event_id" value="<%= event_id %>">
+          <div class=" btnShouldBeCenterAndALittleBitUp">
+            <input class="btn btn-primary" id="voteButton" type="submit" value="Vote">
+          </div>
+        </form>
+      </section>
+      </div>
+      <div class="col-1"></div>
+    </div>
+    <% include partials/_footer.ejs %>
+  </main>
 
-    <section data-event_id="<%= event_id %>" >
-      <form id="voteForm" action="/vote" method="POST">
-        <input type="hidden" id="<%= event_id %>" name="event_id" value="<%= event_id %>">
-        <input id ="voteButton" type="submit" value="Vote">
-      </form>
-      
-    </section>
-    
-  </body>
+
 </html>

@@ -3,31 +3,30 @@
 
 <head>
   <title>Schoodle Create Initiator</title>
-
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <% include partials/_head.ejs %>˝
 </head>
 
 <body>
-  <header>
-    <h1>Hello Schoodlers!</h1>
-  </header>
-
-  <form action="/poll" method="POST">
-    <label for="input_name">Name</label>
-    <input type="text" id="input_name" name="name"><br>
-    <label for="input_email">Email</label>
-    <input type="text" id="input_email" name="email"><br>
-    <input type="submit" value="Create Schoodle Poll">
-  </form>
-
+  <% include partials/_nav_bar.ejs %>
+  <main class="">
+    <div class="row col-12">
+      <div class="col-1"></div>
+      <div class="aLittleBitDown andWeWantedBlue weWantItRounded col-10">
+        <h1>Provide us your name and email</h1>
+        <form class="" action="/poll" method="POST">
+          <label for="input_name">Name</label>
+          <input class="form-control form-control-m " type="text" id="input_name" name="name"><br>
+          <label for="input_email">Email</label>
+          <input class="form-control form-control-m " type="text" id="input_email" name="email"><br>
+          <div class="btnShouldBeCenterAndALittleBitUp">
+            <input class="btn btn-primary" type="submit" value="Create Schoodle Poll">
+          </div>
+        </form>
+      </div>
+      <div class="col-1"></div>
+    </div>
+    <% include partials/_footer.ejs %>
+  </main>
 </body>
 
 </html>
