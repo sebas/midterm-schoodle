@@ -69,7 +69,7 @@ app.post("/poll", (req, res) => {
     event_details, 
     event_options,
     organizer_details,
-  }
+  };
   dataHelpers.savePoll(knex, newPoll, (id, super_secret_URL) => {
     res.render("poll", {
       title: newPoll.event_details.event_name, 
@@ -99,13 +99,28 @@ app.post("/vote", (req, res) => {
 app.get("/poll/:id", (req, res) => {
   const super_secret_URL = req.params.id;
   dataHelpers.getPoll(knex, super_secret_URL, (pollData) => {
-    const { title, place, note, organizer_name, organizer_email, event_id } = pollData[0]
-    const option1 = { option_text: pollData[0].option_text, event_option_id: pollData[0].event_option_id }
-    const option2 = { option_text: pollData[1].option_text, event_option_id: pollData[1].event_option_id }
+    const { title, place, note, organizer_name, organizer_email, event_id } = pollData[0];
+    const option1 = { option_text: pollData[0].option_text, event_option_id: pollData[0].event_option_id };
+    const option2 = { option_text: pollData[1].option_text, event_option_id: pollData[1].event_option_id };
     res.render("poll", { title, place, note, organizer_name, organizer_email, option1, option2, super_secret_URL, event_id });
   });
 });
 
+// About page
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+// Prices page
+app.get("/pricing", (req, res) => {
+  res.render("pricing");
+});
+
+// Features page
+app.get("/features", (req, res) => {
+  res.render("features");
+});
+
 app.listen(PORT, () => {
-  console.log("Schoodle app listening on port " + PORT);
+  console.log("Schooodle app listening on port " + PORT);
 });
