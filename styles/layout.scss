@@ -1,8 +1,43 @@
 body {
-  background-image: url("/images/background-schooodle.png");
+  background-image: url("/images/background-schoodle-light.png");
   background-color: rgba(211, 211, 211, 0.3);
 
   nav.navbar {
+    a {
+      color: white !important;
+    }
+  }
+
+  .btnShouldBeCenterAndALittleBitUp {
+    text-align: center;
+    padding: 0.6rem 0rem;
+  }
+
+  .weWantItRounded {
+    border-radius: 0.5rem;
+    border-style: solid;
+    border-color: rgb(0, 162, 182);
+  }
+
+  .andWeWantedBlue {
+    background-color: rgba(0, 127, 197, 1)
+  }
+
+  .aLittleBitDown {
+    margin: 70px 10px 0px 10px;
+  }
+
+  .notThatMuchToTheLeft {
+    padding-left: 0.3rem;
+  }
+
+  h1 {
+    color: #244751;
+  }
+
+  .weWantTheAvatarRounded {
+    border-radius: 35px;
+    border: solid black 1px;
     a {
       color: white !important;
     }
