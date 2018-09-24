@@ -18,7 +18,6 @@ module.exports = function makeDataHelpers(db) {
           super_secret_URL: super_secret_URL()
         })
         .then(([{id, super_secret_URL}]) => {
-          console.log('this is the secret url in then', id, super_secret_URL)
           // Insert each Options into Event_Options table using event ID
           const options = Object.values(newPoll.event_options);
           options.map((option) => {
@@ -61,7 +60,6 @@ module.exports = function makeDataHelpers(db) {
     },
 
     saveVote: function (knex, newVote, callback){
-      console.log("newVote is", newVote);
      // console.log("The fields are ", newVote.event_id, newVote.event_option_id, newVote.organizer_name,newVote.organizer_email);
      // INSERT INTO table_name(column_list) VALUES(value_list) ON CONFLICT no_double_votes DO UPDATE ...
      const { event_id, event_option_id, username, email } = newVote;
@@ -76,7 +74,6 @@ module.exports = function makeDataHelpers(db) {
         .select('*')
         .where({ event_option_id })
         .then((res)=>{
-          console.log('this is the res in getParticipants', res)
           callback(res);
         })
     },
@@ -86,7 +83,6 @@ module.exports = function makeDataHelpers(db) {
         .select('*')
         .where({ event_id })
         .then((res)=>{
-          console.log('this is the res in getVotes', res)
           callback(res);
         })
     }

@@ -16,7 +16,7 @@ const knexLogger  = require("knex-logger");
 const cookieParser = require("cookie-parser");
 
 // Seperated Routes for each Resource
-const usersRoutes = require("../routes/users");
+const apiRoutes = require("../routes/api");
 const dataHelpers = require("./lib/data-helpers")();
 
 console.log("You are working on:", ENV );
@@ -42,11 +42,10 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+app.use("/api/", apiRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  console.log('Cookies: ', req.cookies);
   res.render("index");
 });
 
@@ -72,7 +71,6 @@ app.post("/poll", (req, res) => {
     organizer_details,
   }
   dataHelpers.savePoll(knex, newPoll, (id, super_secret_URL) => {
-    console.log('url', super_secret_URL)
     res.render("poll", { 
       title: newPoll.event_details.event_name, 
       place: newPoll.event_details.event_location, 
@@ -86,7 +84,6 @@ app.post("/poll", (req, res) => {
 });
 
 app.post("/vote", (req, res) => {
-  console.log("request in vote post is",req.body);
   const newVote = {
     event_id: req.body.event_id,
     event_option_id: req.body.option,
@@ -95,7 +92,6 @@ app.post("/vote", (req, res) => {
     super_secret_URL: req.body.super_secret_URL
   };
   dataHelpers.saveVote(knex,newVote,()=>{
-    console.log('are you running', req.body.super_secret_URL);
     res.send("/poll/" + req.body.super_secret_URL);
   });
 });
@@ -110,30 +106,6 @@ app.get("/poll/:id", (req, res) => {
   });
 });
 
-app.get("/api/events/pollOptions/:id", (req, res) => {
-  const event_id = req.params.id;
-  dataHelpers.getPollOptions(knex, event_id, (eventOptionsArray) => {
-    if (eventOptionsArray) {
-      res.status(200).json(eventOptionsArray);
-    } else {
-      res.status(500).send('we fukd')
-    }
-  });
-});
-
-app.get("/api/events/:optionId/participants", (req,res) => {
-  const event_option_id = req.params.optionId;
-  dataHelpers.getParticipantsForOption(knex, event_option_id, (participants) => {
-    res.status(200).json(participants);
-  });
-});
-
-app.get("/api/votes/:id", (req, res) =>{
-  dataHelpers.getVotes(knex, req.params.id, (votes) => {
-    console.log('these are the votes in /api/votes/', votes);
-    res.status(200).json(votes);
-  });
-});
 app.listen(PORT, () => {
   console.log("Schoodle app listening on port " + PORT);
 });
