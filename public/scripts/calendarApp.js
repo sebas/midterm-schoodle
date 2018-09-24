@@ -25,5 +25,6 @@ $(function () {
     $('#input_fields_container').children().last().remove();
     $('#input_fields_container').children().last().remove();
     $('#input_fields_container').children().last().remove();
+    $('#input_fields_container').children().last().remove();
   });
 });
