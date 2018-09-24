@@ -106,6 +106,21 @@ app.get("/poll/:id", (req, res) => {
   });
 });
 
+// About page
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+// Prices page
+app.get("/pricing", (req, res) => {
+  res.render("pricing");
+});
+
+// Features page
+app.get("/features", (req, res) => {
+  res.render("features");
+});
+
 app.listen(PORT, () => {
   console.log("Schooodle app listening on port " + PORT);
 });
