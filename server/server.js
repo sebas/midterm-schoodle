@@ -71,7 +71,7 @@ app.post("/poll", (req, res) => {
     organizer_details,
   }
   dataHelpers.savePoll(knex, newPoll, (id, super_secret_URL) => {
-    res.render("poll", { 
+    res.render("poll", {
       title: newPoll.event_details.event_name, 
       place: newPoll.event_details.event_location, 
       note: newPoll.event_details.event_note,
