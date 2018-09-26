@@ -63,7 +63,7 @@ module.exports = function makeDataHelpers(db) {
      // console.log("The fields are ", newVote.event_id, newVote.event_option_id, newVote.organizer_name,newVote.organizer_email);
      // INSERT INTO table_name(column_list) VALUES(value_list) ON CONFLICT no_double_votes DO UPDATE ...
      const { event_id, event_option_id, username, email } = newVote;
-     knex.raw(`INSERT INTO participants ("event_id", "event_option_id", "username", "email") VALUES (${event_id}, ${event_option_id}, '${username}', '${email}') ON CONFLICT ON CONSTRAINT no_double_votes DO UPDATE SET event_option_id = ${event_option_id}, username = '${username}'`)
+     knex.raw('INSERT INTO participants ("event_id", "event_option_id", "username", "email") VALUES (?, ?, ?, ?) ON CONFLICT ON CONSTRAINT no_double_votes DO UPDATE SET event_option_id = ? , username = ?', [event_id, event_option_id, username, email, event_option_id, username])
      .then((res)=>{
         callback(res);
       })
