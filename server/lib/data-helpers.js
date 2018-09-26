@@ -1,9 +1,9 @@
 
 const super_secret_URL = require('./util/url-helper');
 
-module.exports = function makeDataHelpers(db) {
+module.exports = function makeDataHelpers(knex) {
   return {
-    savePoll: function (knex, newPoll, callback) {
+    savePoll: function (newPoll, callback) {
       // Insert Event into Events table
       const { event_name, event_location, event_note } = newPoll.event_details;
       const { name, email } = newPoll.organizer_details;
@@ -33,7 +33,7 @@ module.exports = function makeDataHelpers(db) {
     },
 
     // FROM events JOIN event_options ON events.id = event_options.event_id LEFT JOIN participants ON event_options.id=participants.event_option_id WHERE super_secret_URL=query;
-    getPoll: function (knex, super_secret_URL, callback) {
+    getPoll: function (super_secret_URL, callback) {
       knex()
         .select([
           'events.id AS event_id',
@@ -51,7 +51,7 @@ module.exports = function makeDataHelpers(db) {
         .then(result => callback(result))
     },
 
-    getPollOptions: function (knex, event_id, callback) {
+    getPollOptions: function (event_id, callback) {
       knex('event_options')
         .select('*')
         .where({ event_id })
@@ -59,7 +59,7 @@ module.exports = function makeDataHelpers(db) {
           callback(result))
     },
 
-    saveVote: function (knex, newVote, callback){
+    saveVote: function (newVote, callback){
      // console.log("The fields are ", newVote.event_id, newVote.event_option_id, newVote.organizer_name,newVote.organizer_email);
      // INSERT INTO table_name(column_list) VALUES(value_list) ON CONFLICT no_double_votes DO UPDATE ...
      const { event_id, event_option_id, username, email } = newVote;
@@ -69,7 +69,7 @@ module.exports = function makeDataHelpers(db) {
       })
     },
 
-    getParticipantsForOption: function(knex, event_option_id, callback) {
+    getParticipantsForOption: function(event_option_id, callback) {
       knex("participants")
         .select('*')
         .where({ event_option_id })
@@ -78,7 +78,7 @@ module.exports = function makeDataHelpers(db) {
         })
     },
 
-    getVotesSum: function(knex, event_id, callback) {
+    getVotesSum: function(event_id, callback) {
       knex("participants")
         .select('*')
         .where({ event_id })

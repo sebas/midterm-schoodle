@@ -17,7 +17,7 @@ const cookieParser = require("cookie-parser");
 
 // Seperated Routes for each Resource
 const apiRoutes = require("../routes/api");
-const dataHelpers = require("./lib/data-helpers")();
+const dataHelpers = require("./lib/data-helpers")(knex);
 
 console.log("You are working on:", ENV );
 
@@ -70,7 +70,7 @@ app.post("/poll", (req, res) => {
     event_options,
     organizer_details,
   };
-  dataHelpers.savePoll(knex, newPoll, (id, super_secret_URL) => {
+  dataHelpers.savePoll(newPoll, (id, super_secret_URL) => {
     res.render("poll", {
       title: newPoll.event_details.event_name, 
       place: newPoll.event_details.event_location, 
@@ -91,14 +91,14 @@ app.post("/vote", (req, res) => {
     email: req.body.email,
     super_secret_URL: req.body.super_secret_URL
   };
-  dataHelpers.saveVote(knex,newVote,()=>{
+  dataHelpers.saveVote(newVote,()=>{
     res.send("/poll/" + req.body.super_secret_URL);
   });
 });
 
 app.get("/poll/:id", (req, res) => {
   const super_secret_URL = req.params.id;
-  dataHelpers.getPoll(knex, super_secret_URL, (pollData) => {
+  dataHelpers.getPoll(super_secret_URL, (pollData) => {
     const { title, place, note, organizer_name, organizer_email, event_id } = pollData[0];
     const option1 = { option_text: pollData[0].option_text, event_option_id: pollData[0].event_option_id };
     const option2 = { option_text: pollData[1].option_text, event_option_id: pollData[1].event_option_id };
